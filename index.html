@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<title>DFS & BFS Academy</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">G</span><div><strong>DFS & BFS Academy</strong><small data-i18n="subtitle">Explore. Visualize. Solve.</small></div></div>
+  <div class="top-actions">
+    <button id="langBtn" class="ghost" aria-label="Change language">العربية</button>
+    <a class="github-link" href="https://github.com/" target="_blank" rel="noreferrer">GitHub ↗</a>
+  </div>
+</header>
+
+<main class="page">
+  <section class="hero">
+    <div>
+      <p class="eyebrow" data-i18n="eyebrow">GRAPH ALGORITHMS • LEARNING LAB</p>
+      <h1 data-i18n="headline">Understand graph traversal,<br><em>one step at a time.</em></h1>
+      <p class="hero-copy" data-i18n="intro">Build a graph, run DFS or BFS, and inspect every decision made by the algorithm.</p>
+    </div>
+    <div class="hero-chip"><span class="pulse"></span><span data-i18n="browserOnly">Runs locally in your browser</span></div>
+  </section>
+
+  <section class="workspace">
+    <div class="panel graph-panel">
+      <div class="panel-head">
+        <div><p class="eyebrow" data-i18n="visualLab">VISUAL LAB</p><h2 data-i18n="graphTitle">Graph playground</h2></div>
+        <div class="head-tools"><button id="sampleBtn" class="small-btn" data-i18n="sample">Load example</button><button id="clearBtn" class="small-btn danger-text" data-i18n="clear">Clear</button></div>
+      </div>
+      <div class="toolbar">
+        <button id="addNodeBtn" class="tool active"><span>＋</span><span data-i18n="addNode">Add node</span></button>
+        <button id="addEdgeBtn" class="tool"><span>↗</span><span data-i18n="addEdge">Add edge</span></button>
+        <label class="switch-label"><input type="checkbox" id="directedToggle"><span data-i18n="directed">Directed</span></label>
+        <span id="toolHint" class="hint" data-i18n="nodeHint">Tap empty space to add a node.</span>
+      </div>
+      <div class="graph-wrap">
+        <svg id="graph" viewBox="0 0 760 430" role="img" aria-label="Interactive graph canvas">
+          <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#8191a8"/></marker></defs>
+          <g id="edges"></g><g id="nodes"></g>
+        </svg>
+        <div class="canvas-note" data-i18n="canvasNote">Select “Add edge”, then tap two nodes.</div>
+      </div>
+      <div class="graph-footer"><span id="graphStats">6 nodes · 7 edges</span><span data-i18n="dragNote">Drag nodes to rearrange</span></div>
+    </div>
+
+    <aside class="panel controls-panel">
+      <p class="eyebrow" data-i18n="runControl">RUN CONTROL</p><h2 data-i18n="algorithmSetup">Algorithm setup</h2>
+      <div class="field"><label data-i18n="chooseAlgorithm">Choose algorithm</label><div class="segmented"><button id="dfsBtn" class="selected">DFS</button><button id="bfsBtn">BFS</button></div></div>
+      <div class="field"><label for="startNode" data-i18n="startNode">Starting node</label><select id="startNode"></select></div>
+      <div class="run-actions"><button id="runBtn" class="primary">▶ <span data-i18n="run">Run algorithm</span></button><button id="resetBtn" class="secondary" data-i18n="reset">Reset</button></div>
+      <div class="field speed-field"><label for="speed" data-i18n="speed">Animation speed</label><div class="speed-row"><input id="speed" type="range" min="1" max="5" value="3"><span id="speedValue">3×</span></div></div>
+      <div class="mini-note" data-i18n="hint">Tip: Neighbor order affects the exact traversal order. Try changing the graph.</div>
+    </aside>
+  </section>
+
+  <section class="lower-grid">
+    <div class="panel trace-panel">
+      <div class="panel-head"><div><p class="eyebrow" data-i18n="execution">EXECUTION TRACE</p><h2 data-i18n="stepByStep">Step-by-step execution</h2></div><span id="stepCounter" class="counter">0 / 0</span></div>
+      <div class="step-explanation" id="explanation" data-i18n="notStarted">Run an algorithm to inspect its decisions.</div>
+      <div class="step-controls">
+        <button id="firstStep" class="icon-btn" title="First step">|◀</button><button id="prevStep" class="icon-btn" title="Previous">◀</button>
+        <button id="playBtn" class="primary play-btn">▶ <span data-i18n="play">Play</span></button>
+        <button id="nextStep" class="icon-btn" title="Next">▶</button><button id="lastStep" class="icon-btn" title="Last step">▶|</button>
+      </div>
+      <div class="state-columns">
+        <div class="state-box"><div class="state-title"><span data-i18n="visitedOrder">Visit order</span><b id="visitedCount">0</b></div><div id="visitedList" class="token-list empty">—</div></div>
+        <div class="state-box"><div class="state-title"><span id="frontierTitle">Stack (top → bottom)</span><b id="frontierCount">0</b></div><div id="frontierList" class="token-list empty">—</div></div>
+      </div>
+    </div>
+    <div class="panel code-panel">
+      <div class="panel-head"><div><p class="eyebrow" data-i18n="cppReference">C++ REFERENCE</p><h2 data-i18n="cppImplementation">Implementation</h2></div><span class="language-tag">C++17</span></div>
+      <div class="code-tabs"><button id="recursiveTab" class="code-tab active" data-i18n="recursive">Recursive DFS</button><button id="iterativeTab" class="code-tab" data-i18n="iterative">Iterative BFS/DFS</button></div>
+      <pre class="code"><code id="codeBlock"></code></pre>
+      <p class="code-caption" data-i18n="codeCaption">Reference implementation for learning. The visualizer runs its own JavaScript engine.</p>
+    </div>
+  </section>
+
+  <section class="learning-strip">
+    <div><p class="eyebrow" data-i18n="nextLearning">YOUR LEARNING PATH</p><h2 data-i18n="nextTitle">From understanding to problem solving</h2><p data-i18n="nextCopy">This first release gives you the interactive foundation. Lessons, quizzes, and a C++ problem set will be added in the next stages.</p></div>
+    <div class="path-items"><span>01 · Graph basics</span><span>02 · DFS & BFS</span><span>03 · Patterns</span><span>04 · Practice</span></div>
+  </section>
+  <footer><span>DFS & BFS Academy</span><span data-i18n="footer">Learning project · Phase 1</span></footer>
+</main>
+<div id="toast" class="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>
